@@ -65,8 +65,9 @@ router.post('/login', function (req, res, next) {
 
 
 router.post('/register', function (req, res, next) {
-  if (typeof (req.body.name) == "undefined" || typeof (req.body.email) == "undefined" || typeof (req.body.password) == "undefined") {
+  if (typeof (req.body.email) == "undefined" || typeof (req.body.password) == "undefined") {
     res.status(400).json({ type: false, data: "Invalid data." });
+    return;
   }
   User.findOne({ email: req.body.email }, function (err, user) {
     if (err) {
@@ -79,7 +80,7 @@ router.post('/register', function (req, res, next) {
     }
     var userModel = new User(req.body);
     userModel.save(function (err, user) {
-      res.json({ type: true, data: user });
+      return res.json({ type: true, data: user });
     });
   });
 });

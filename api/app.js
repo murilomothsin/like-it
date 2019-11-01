@@ -5,12 +5,12 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var cors = require('cors')
 
-var routes = require('./routes/index');
+var likes = require('./routes/likes');
 var users = require('./routes/users');
 
 var app = express();
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/trello');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/likeit');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -24,7 +24,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use('/', routes);
+app.use('/like', likes);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
