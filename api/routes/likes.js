@@ -30,7 +30,16 @@ router.get('/', function (req, res, next) {
   });
 });
 
-router.post('/like', function(req, res, next) {
+router.get('/count', function (req, res, next) {
+  Like.countDocuments({ like: true }, (err, likes) => {
+    Like.countDocuments({ like: false }, (err, dislikes) => {
+      res.json({ likes, dislikes })
+    })
+  })
+});
+
+router.post('/', function(req, res, next) {
+  console.log(req.body)
   const like = new Like()
   like.like = req.body.like
   like.creator = req.decoded._id

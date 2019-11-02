@@ -33,6 +33,7 @@ router.post('/login', function (req, res, next) {
       res.status(500).json({ type: false, data: "Error occured: " + err });
       return;
     }
+    console.log(user)
     // No user found with that username
     if (!user) {
       res.status(400).json({ type: false, data: "Invalid email/password." });
